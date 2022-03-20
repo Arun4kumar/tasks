@@ -83,12 +83,7 @@ const Input = React.forwardRef((props,ref) => {
     const task = { text: text.current.value,dateTime: date.current ? date.current.value || tempDate.getTime() : tempDate.getTime(),active: true,duration: duration.current.value || "0" }
     const temp1 = new Date(tempDate.toISOString())
     const temp2 = new Date(task.dateTime)
-    console.log(tempDate.toISOString())
-    console.log(task.dateTime)
-    console.log(temp1)
-    console.log(temp2)
-    console.log(temp1.getTime());
-    console.log(temp2.getTime())
+
     dispatch(addTask(user.email,task))
   }
 

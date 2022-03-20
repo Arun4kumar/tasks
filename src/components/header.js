@@ -28,6 +28,9 @@ img{
   border-radius:50%;
 }
 .options{
+  position:absolute;
+  top:0%;
+  left:110%;
   background:linear-gradient(145deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
   color:white;
   margin-top:none;

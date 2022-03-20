@@ -5,23 +5,23 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const initialState = {
     tasks: [],
     darkMode: false,
-    isLoading: false
+    isLoading: false,
 }
 
 const tasksReducer = (state = initialState,action) => {
     if (action.type == "setLoading") {
         return { ...state,isLoading: true }
     }
-    if (action.type == "remLoading") {
+    else if (action.type == "remLoading") {
         return { ...state,isLoading: false }
     }
-    if (action.type == "addUser") {
+    else if (action.type == "addUser") {
         return { ...state,user: action.user }
     }
-    if (action.type === "populate") {
+    else if (action.type === "populate") {
         return { ...state,tasks: action.state }
     }
-    if (action.type === "add") {
+    else if (action.type === "add") {
         return {
             ...state,
             tasks: [ action.task,...state.tasks ],
@@ -56,6 +56,18 @@ const tasksReducer = (state = initialState,action) => {
         return {
             ...state,
             darkMode: !state.darkMode
+        }
+    }
+    else if (action.type === "notified") {
+        let temp = state.tasks;
+        for (let task of temp) {
+            if (task.id === action.id) {
+                task.notified = true
+            }
+        }
+        return {
+            ...state,
+            tasks: temp
         }
     }
     return state;

@@ -15,7 +15,7 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router";
 import { deleteTask,populateState,updateHandler } from "../actions/user";
 
-const Home = ({ curTheme }) => {
+const Home = ({ mode }) => {
     const state = useSelector((state) => state.tasks)
     async function getPer() {
         await Notification.requestPermission()
@@ -68,7 +68,7 @@ const Home = ({ curTheme }) => {
         cur = cur.filter((val,ind) => val.active === active);
         setFilterdList(cur);
     };
-    const mode = useSelector((state) => state.darkMode)
+
     return (
         <Fragment>
             <ListContainer mode={mode}>
@@ -104,7 +104,7 @@ const Home = ({ curTheme }) => {
                 </FilterContainer>
             </ListContainer>
             <Container style={{ justifyContent: "center",height: "100%" }}>
-                <p style={{ textAlign: "center",alignSelf: "center",color: `${theme[ curTheme ][ 3 ]}` }}>Drag and Drop to reorder list</p>
+                <p style={{ textAlign: "center",alignSelf: "center",color: `${theme[ mode ? 'dark' : 'light' ][ 3 ]}` }}>Drag and Drop to reorder list</p>
             </Container>
         </Fragment >
     )

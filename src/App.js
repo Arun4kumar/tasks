@@ -64,7 +64,7 @@ function App() {
               <Route exact path="/login" element={<Login mode={mode} />} />
               <Route exact path="/register" element={<Register mode={mode} />} />
               <Route exact path="/reset" element={<Reset mode={mode} />} />
-              <Route exact path="/" element={<Home curTheme={curTheme} />} />
+              <Route exact path="/" element={<Home mode={mode} />} />
             </Routes>
             <NotificationContainer />
           </BrowserRouter>

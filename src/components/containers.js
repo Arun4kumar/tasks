@@ -56,7 +56,6 @@ export const FilterContainer = styledComponents.section`
 display:flex;
 justify-content:center;
 gap:1rem;
-font-weight:700;
 color:${({ theme,mode }) => mode ? theme.dark[ 3 ] : theme.light[ 3 ]};
 &>h1:hover{
     color:${({ theme,mode }) => mode ? theme.dark[ 0 ] : theme.light[ 4 ]};

@@ -3,6 +3,7 @@ import styledComponents from "styled-components";
 import { CheckBox } from "./checkbox";
 import Moment from 'react-moment';
 import { NotificationManager } from 'react-notifications';
+import { useDispatch } from "react-redux";
 
 const Container = styledComponents.div`
   display:flex;
@@ -37,24 +38,34 @@ border-bottom: 1px solid ${({ theme,mode }) => mode ? theme.dark[ 4 ] : theme.li
 }`;
 
 const ListItem = ({ item,check,remove,mode }) => {
+  const dispatch = useDispatch();
   const [ date,setDate ] = useState(item.dateTime);
   const curDate = new Date(date);
   let msgTime = curDate.getTime() - (Number(item.duration) * 60);
   msgTime = new Date(msgTime);
   const cur = new Date();
   const notTime = Math.abs(msgTime.getTime() - cur.getTime())
+  const [ isSet,setSet ] = useState(false);
 
-  if (item.active == true) {
-    if (msgTime > new Date()) {
+  if (item.active == true && isSet == false) {
+    const compDate = new Date();
+    if (msgTime > compDate && item.notified === false) {
       setTimeout(() => {
         NotificationManager.info('You should start ' + item.text + " now.",'Remainder',2000);
+        const notification = new Notification('Please start task',{
+          body: `remainder for task ${item.text}`,
+          icon: './images/working-hours.png',
+          vibrate: true
+        });
+        setTimeout(() => {
+          notification.close();
+          dispatch({ type: "notified",id: item.id });
+          setSet(true)
+        },10000)
         console.log("notified - " + item.text)
       },notTime)
     }
-    else {
-      NotificationManager.info('You should start ' + item.text + " now.",'Remainder',2000);
-      console.log("notified - " + item.text)
-    }
+
   }
 
   return (
